@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spaced Rep.</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <nav>
+        <div class = "site-title">
+            <a href = "/"><h1>Scheduler</h1></a>
+        </div>
+        <ul>
+            <li><a href = "/">Home</a></li>
+            <li><a href = "/create">Create</a></li>
+        </ul>
+    </nav>
+    
+    <div class = "tasks-content">
+    <h3>All Tasks</h3>
+
+    <% if (tasks.length > 0) { %>
+        <% tasks.forEach(task => { %>
+
+            <a class = "single" href = "/tasks/<%= task._id %>">
+                <h3><%= task.task %></h3>
+                <p><%= task.date%></p>
+                <p><%= task.description %></p>
+                <div class = "task-options">
+                    <p>Status</p>
+                    <p><%= task.options %></p>
+                </div>
+            </a>
+
+        <% }) %>
+    <% } %>
+    </div>
+</body>
+</html>

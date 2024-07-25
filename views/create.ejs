@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spaced Rep.</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <nav>
+        <div class = "site-title">
+            <a href = "/"><h1>Scheduler</h1></a>
+        </div>
+        <ul>
+            <li><a href = "/">Home</a></li>
+            <li><a href = "/create">Create</a></li>
+        </ul>
+    </nav>
+    
+    <h3>Create a New Task</h3>
+
+    <div class = "create_task">
+        <!-- We can send POST requests to create a new task from here -->
+        <form action = "/tasks" method = "POST">
+            <!-- Task Name -->
+            <label for="tname">Task</label> <br>
+            <input type="text" id="tname" name = "task" required><br>
+            <!-- Due Date -->
+            <label for="due_date">Due Date</label> <br>
+            <input type="date" id="due_date" name="date" required><br>
+            <!-- Description -->
+            <label for="body">Description</label> <br>
+            <textarea id = "body" name = "description" required></textarea><br>
+
+            <label for="options">Difficulty</label><br>
+            <select id = "options" name = "options">
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+            </select>
+            <button>Submit</button>
+        </form>
+    </div>
+</body>
+</html>

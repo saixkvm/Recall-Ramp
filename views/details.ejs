@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spaced Rep.</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <nav>
+        <div class = "site-title">
+            <a href = "/"><h1>Scheduler</h1></a>
+        </div>
+        <ul>
+            <li><a href = "/">Home</a></li>
+            <li><a href = "/create">Create</a></li>
+        </ul>
+    </nav>
+
+    <div class = "details">
+        <h2><%= task.task %></h2>
+        <!-- <p> <%= task.date %></p> -->
+        <p>Description: <%= task.description %></p>
+        <p> Status: <%= task.options %> </p>
+        <% if (task.options === "easy") { %>
+            <%
+                const daysToAdd = 2;
+                const date = new Date(task.date);
+                date.setDate(date.getDate() + daysToAdd);
+                const formattedDate = date.toISOString().split('T')[0];
+            %>
+            <div class = "review"><p>Next Review: <%= formattedDate %></p></div>
+        <% } %>
+
+        <% if (task.options === "medium") { %>
+            <%
+                let daysToAdd = 2;
+                for (let i = 0; i < 2; i++) {
+                    const date = new Date(task.date);
+                    date.setDate(date.getDate() + daysToAdd);
+                    const formattedDate = date.toISOString().split('T')[0];
+                    task.date = formattedDate;
+            %>
+            <div class = "review"><p>Next Review: <%= formattedDate %></p></div>
+            <%
+                    daysToAdd += 1;
+                }
+            %>
+        <% } %>
+        <% if (task.options === "hard") { %>
+            <%
+                let daysToAdd = 2;
+                for (let i = 0; i < 3; i++) {
+                    const date = new Date(task.date);
+                    date.setDate(date.getDate() + daysToAdd);
+                    const formattedDate = date.toISOString().split('T')[0];
+                    task.date = formattedDate;
+            %>
+            <div class = "review"><p>Next Review: <%= formattedDate %></p></div>
+            <%
+                    daysToAdd += 1;
+                }
+            %>
+        <% } %>
+        <a class="delete" data-doc="<%= task._id %>">delete</a>
+
+    </div>
+    
+    <script>
+        const trashcan = document.querySelector('a.delete');
+    
+        trashcan.addEventListener('click', (e) => {
+          const endpoint = `/tasks/${trashcan.dataset.doc}`;
+    
+          fetch(endpoint, {
+            method: 'DELETE',
+          })
+          .then(response => response.json())
+          .then(data => window.location.href = data.redirect)
+          .catch(err => console.log(err));
+        });
+        
+      </script>
+</body>
+</html>
